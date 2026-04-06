@@ -1,6 +1,7 @@
 # A3_ESTOQUE_COMERCIAL
 Repositórios do Trabalho A3 Algoritmos
 
+
 # Desenvolvedores
 Mateus Pauli Stahnke RA: 1072611728  https://github.com/pauli-01
 Mateus Zanela RA: 10726115012 https://github.com/MateusZanela08
