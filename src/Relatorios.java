@@ -83,7 +83,7 @@ public class Relatorios {
 
             switch (escolha) {
                 case 0:
-                    exibirMensagem("Em desenvolvimento...", "Lista de Precos", JOptionPane.INFORMATION_MESSAGE);
+                    listaDePrecos();
                     break;
                 case 1:
                     exibirMensagem("Em desenvolvimento...", "Balanco Fisico-Financeiro", JOptionPane.INFORMATION_MESSAGE);
@@ -92,6 +92,83 @@ public class Relatorios {
                 case JOptionPane.CLOSED_OPTION:
                     continuar = false;
                     break;
+            }
+        }
+    }
+
+    // =========================================================================
+    // TELA 1.4.1 - Lista de Precos
+    // =========================================================================
+
+    /**
+     * Sub-rotina: gera e exibe a Lista de Precos de todos os produtos em ordem alfabetica.
+     *
+     * <p>Formato do relatorio: PRODUTO | UND | PRECO</p>
+     * <p>Se nao houver produtos cadastrados, exibe mensagem de aviso.</p>
+     */
+    private void listaDePrecos() {
+        if (totalProdutos == 0) {
+            exibirMensagem("Nenhum produto cadastrado.", "Lista de Precos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String[] nomesOrd    = copiarVetorString(nomes, totalProdutos);
+        double[] precosOrd   = copiarVetorDouble(precos, totalProdutos);
+        String[] unidadesOrd = copiarVetorString(unidades, totalProdutos);
+        int[]    quantOrd    = copiarVetorInt(quantidades, totalProdutos);
+
+        ordenarAlfabetico(nomesOrd, precosOrd, unidadesOrd, quantOrd, totalProdutos);
+
+        String texto = "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                     + "SISTEMA DE CONTROLE DE ESTOQUE\n"
+                     + "LISTA DE PRECOS\n"
+                     + "________________________________\n\n";
+
+        for (int i = 0; i < totalProdutos; i++) {
+            texto = texto
+                  + "Produto : " + nomesOrd[i] + "\n"
+                  + "Unidade : " + unidadesOrd[i] + "\n"
+                  + "Preco   : R$ " + String.format("%.2f", precosOrd[i]) + "\n"
+                  + "________________________________\n";
+        }
+
+        exibirMensagem(texto, "Lista de Precos", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    // =========================================================================
+    // SUB-ROTINAS AUXILIARES
+    // =========================================================================
+
+    /**
+     * Sub-rotina: ordena os vetores de produtos em ordem alfabetica pelo nome (Bubble Sort).
+     *
+     * @param nomesOrd    vetor de nomes a ser ordenado
+     * @param precosOrd   vetor de precos sincronizado
+     * @param unidadesOrd vetor de unidades sincronizado
+     * @param quantOrd    vetor de quantidades sincronizado
+     * @param total       numero de elementos a considerar
+     */
+    private void ordenarAlfabetico(String[] nomesOrd, double[] precosOrd,
+            String[] unidadesOrd, int[] quantOrd, int total) {
+        for (int i = 0; i < total - 1; i++) {
+            for (int j = 0; j < total - 1 - i; j++) {
+                if (nomesOrd[j].compareToIgnoreCase(nomesOrd[j + 1]) > 0) {
+                    String tmpNome = nomesOrd[j];
+                    nomesOrd[j] = nomesOrd[j + 1];
+                    nomesOrd[j + 1] = tmpNome;
+
+                    double tmpPreco = precosOrd[j];
+                    precosOrd[j] = precosOrd[j + 1];
+                    precosOrd[j + 1] = tmpPreco;
+
+                    String tmpUnd = unidadesOrd[j];
+                    unidadesOrd[j] = unidadesOrd[j + 1];
+                    unidadesOrd[j + 1] = tmpUnd;
+
+                    int tmpQtd = quantOrd[j];
+                    quantOrd[j] = quantOrd[j + 1];
+                    quantOrd[j + 1] = tmpQtd;
+                }
             }
         }
     }
@@ -105,5 +182,44 @@ public class Relatorios {
      */
     private void exibirMensagem(String mensagem, String titulo, int tipo) {
         JOptionPane.showMessageDialog(null, mensagem, titulo, tipo);
+    }
+
+    /**
+     * Funcao: copia um vetor de Strings ate o indice total.
+     *
+     * @param origem vetor original
+     * @param total  numero de elementos a copiar
+     * @return novo vetor com os elementos copiados
+     */
+    private String[] copiarVetorString(String[] origem, int total) {
+        String[] copia = new String[total];
+        for (int i = 0; i < total; i++) copia[i] = origem[i];
+        return copia;
+    }
+
+    /**
+     * Funcao: copia um vetor de doubles ate o indice total.
+     *
+     * @param origem vetor original
+     * @param total  numero de elementos a copiar
+     * @return novo vetor com os elementos copiados
+     */
+    private double[] copiarVetorDouble(double[] origem, int total) {
+        double[] copia = new double[total];
+        for (int i = 0; i < total; i++) copia[i] = origem[i];
+        return copia;
+    }
+
+    /**
+     * Funcao: copia um vetor de inteiros ate o indice total.
+     *
+     * @param origem vetor original
+     * @param total  numero de elementos a copiar
+     * @return novo vetor com os elementos copiados
+     */
+    private int[] copiarVetorInt(int[] origem, int total) {
+        int[] copia = new int[total];
+        for (int i = 0; i < total; i++) copia[i] = origem[i];
+        return copia;
     }
 }
