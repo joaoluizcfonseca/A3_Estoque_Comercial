@@ -78,8 +78,8 @@ Pensando nisso, desenvolvemos um sistema de controle de estoque para uma empresa
 
 ## Tecnologias
 
-- **Linguagem:** Java
-- **IDE:** NetBeans
+- **Linguagem:** Java JDK 25
+- **IDE:** Apache NetBeans IDE 29
 - **Versionamento:** Git & GitHub
 
 ---
