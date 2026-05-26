@@ -86,7 +86,7 @@ public class Relatorios {
                     listaDePrecos();
                     break;
                 case 1:
-                    exibirMensagem("Em desenvolvimento...", "Balanco Fisico-Financeiro", JOptionPane.INFORMATION_MESSAGE);
+                    balancoFisicoFinanceiro();
                     break;
                 case 2:
                 case JOptionPane.CLOSED_OPTION:
@@ -133,6 +133,59 @@ public class Relatorios {
         }
 
         exibirMensagem(texto, "Lista de Precos", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    // =========================================================================
+    // TELA 1.4.2 - Balanco Fisico-Financeiro
+    // =========================================================================
+
+    /**
+     * Sub-rotina: gera e exibe o Balanco Fisico-Financeiro em ordem alfabetica.
+     *
+     * <p>Formato do relatorio: PRODUTO | UND | PRECO UNITARIO | QTDE | PRECO TOTAL</p>
+     * <p>Exibe ao final o total de itens e o valor total do estoque.</p>
+     * <p>Se nao houver produtos cadastrados, exibe mensagem de aviso.</p>
+     */
+    private void balancoFisicoFinanceiro() {
+        if (totalProdutos == 0) {
+            exibirMensagem("Nenhum produto cadastrado.", "Balanco Fisico-Financeiro", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String[] nomesOrd    = copiarVetorString(nomes, totalProdutos);
+        double[] precosOrd   = copiarVetorDouble(precos, totalProdutos);
+        String[] unidadesOrd = copiarVetorString(unidades, totalProdutos);
+        int[]    quantOrd    = copiarVetorInt(quantidades, totalProdutos);
+
+        ordenarAlfabetico(nomesOrd, precosOrd, unidadesOrd, quantOrd, totalProdutos);
+
+        int    totalItens = 0;
+        double valorTotal = 0.0;
+
+        String texto = "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                     + "SISTEMA DE CONTROLE DE ESTOQUE\n"
+                     + "BALANCO FISICO-FINANCEIRO\n"
+                     + "________________________________\n\n";
+
+        for (int i = 0; i < totalProdutos; i++) {
+            double precoTotalProd = precosOrd[i] * quantOrd[i];
+            totalItens = totalItens + quantOrd[i];
+            valorTotal = valorTotal + precoTotalProd;
+
+            texto = texto
+                  + "Produto     : " + nomesOrd[i] + "\n"
+                  + "Unidade     : " + unidadesOrd[i] + "\n"
+                  + "Preco Unit. : R$ " + String.format("%.2f", precosOrd[i]) + "\n"
+                  + "Quantidade  : " + quantOrd[i] + "\n"
+                  + "Preco Total : R$ " + String.format("%.2f", precoTotalProd) + "\n"
+                  + "________________________________\n";
+        }
+
+        texto = texto
+              + "\nTOTAL DE ITENS NO ESTOQUE : " + totalItens + "\n"
+              + "VALOR TOTAL DO ESTOQUE    : R$ " + String.format("%.2f", valorTotal);
+
+        exibirMensagem(texto, "Balanco Fisico-Financeiro", JOptionPane.PLAIN_MESSAGE);
     }
 
     // =========================================================================
