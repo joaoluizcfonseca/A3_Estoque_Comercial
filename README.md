@@ -91,7 +91,7 @@ Pensando nisso, desenvolvemos um sistema de controle de estoque para uma empresa
 | Mateus Zanela | Cadastro de Produtos | [Cadastro_Produto](https://github.com/joaoluizcfonseca/A3_Estoque_Comercial/blob/main/src/main/java/Cadastro_Produto.java)
 | Davi Schuchowsky Boscarino de Medeiros | Movimentação | [Movimentacao.java](https://github.com/joaoluizcfonseca/A3_Estoque_Comercial/blob/main/src/Movimentacao.java) |
 | Mateus Pauli Stahnke | Reajuste de Preços | [A3_Reajuste_Preco](https://github.com/joaoluizcfonseca/A3_Estoque_Comercial/blob/main/src/main/java/A3_Reajuste_Preco.java) |
-| Joao Luiz Candaten Fonseca | Relatórios | [Relatorios.java](https://github.com/joaoluizcfonseca/A3_Estoque_Comercial/blob/main/src/Relatorios.java) |
+| Joao Luiz Candaten Fonseca | Relatórios | [Relatorios.java](https://github.com/joaoluizcfonseca/A3_Estoque_Comercial/blob/main/src/main/java/Relatorios.java) |
 | Eduarda Thais Silva Brandao | Organização geral / Main | [A3_Estoque_Comercial.java](https://github.com/joaoluizcfonseca/A3_Estoque_Comercial/blob/main/src/A3_Estoque_Comercial.java) |
 
 ---
