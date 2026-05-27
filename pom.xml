@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.unisul.a3</groupId>
+    <artifactId>A3_Estoque_Comercial</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <name>A3 Estoque Comercial</name>
+    <description>Sistema de Controle de Estoque - Trabalho A3 de Algoritmos e Programacao - UNISUL</description>
+
+    <properties>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+</project>
