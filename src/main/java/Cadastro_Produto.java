@@ -9,6 +9,7 @@ public class Cadastro_Produto {
     static int[] quantidades = new int[MAX];
     static int total = 0;
 
+    // Ponto de entrada do programa. Exibe o menu principal e aguarda a escolha do usuário.
     public static void main(String[] args) {
         while (true) {
             String[] opcoes = {"Cadastro de Produtos", "Finalizar"};
@@ -32,6 +33,7 @@ public class Cadastro_Produto {
         JOptionPane.showMessageDialog(null, "Sistema encerrado.", "Fim", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    // Exibe o submenu de cadastro com as opções: incluir, alterar, consultar e excluir produto.
     static void menuCadastro() {
         while (true) {
             String[] opcoes = {"Inclusao", "Alteracao", "Consulta", "Exclusao", "Retornar"};
@@ -65,6 +67,8 @@ public class Cadastro_Produto {
         }
     }
 
+    // Cadastra um novo produto no estoque. Solicita nome, unidade, preço e quantidade.
+    // Impede duplicatas e valida cada campo antes de salvar.
     static void inclusao() {
         do {
             if (total >= MAX) {
@@ -72,7 +76,6 @@ public class Cadastro_Produto {
                 return;
             }
 
-            // Nome
             String nome;
             while (true) {
                 nome = input("INCLUSAO DE PRODUTO\n\nNome do produto:");
@@ -84,6 +87,7 @@ public class Cadastro_Produto {
                     erro("Nome nao pode ser vazio!");
                     continue;
                 }
+                // Verifica se o produto já existe antes de cadastrar
                 if (buscar(nome) != -1) {
                     erro("Produto ja cadastrado!");
                     continue;
@@ -148,6 +152,7 @@ public class Cadastro_Produto {
                     + "Quantidade: " + quantidade;
 
             if (confirmar(resumo)) {
+                // Salva o produto nos vetores e incrementa o total cadastrado
                 nomes[total] = nome;
                 unidades[total] = unidade;
                 precos[total] = preco;
@@ -161,6 +166,8 @@ public class Cadastro_Produto {
         } while (confirmar("Deseja fazer nova inclusao?"));
     }
 
+    // Altera os dados de um produto já cadastrado (unidade, preço e/ou quantidade).
+    // Campos deixados em branco mantêm o valor atual.
     static void alteracao() {
         do {
             String nome = input("ALTERACAO DE PRODUTO\n\nNome do produto:");
@@ -186,7 +193,6 @@ public class Cadastro_Produto {
                 novaUnidade = entrada.trim().toUpperCase();
             }
 
-            // Novo preco
             double novoPreco = precos[i];
             while (true) {
                 entrada = input("ALTERACAO: " + nomes[i]
@@ -240,6 +246,7 @@ public class Cadastro_Produto {
                     + "Quantidade: " + novaQtd;
 
             if (confirmar(resumo)) {
+                // Atualiza os dados do produto na posição encontrada
                 unidades[i] = novaUnidade;
                 precos[i] = novoPreco;
                 quantidades[i] = novaQtd;
@@ -251,6 +258,7 @@ public class Cadastro_Produto {
         } while (confirmar("Deseja fazer nova alteracao?"));
     }
 
+    // Busca um produto pelo nome e exibe seus dados (nome, unidade, preço e quantidade).
     static void consulta() {
         do {
             String nome = input("CONSULTA DE PRODUTO\n\nNome do produto:");
@@ -277,6 +285,8 @@ public class Cadastro_Produto {
         } while (confirmar("Deseja fazer nova consulta?"));
     }
 
+    // Remove um produto do cadastro. Após a exclusão, desloca os demais produtos
+    // para preencher o espaço vazio deixado no vetor.
     static void exclusao() {
         do {
             String nome = input("EXCLUSAO DE PRODUTO\n\nNome do produto:");
@@ -297,13 +307,14 @@ public class Cadastro_Produto {
                     + "Quantidade: " + quantidades[i];
 
             if (confirmar(resumo)) {
+                // Move todos os produtos após o excluído uma posição para a esquerda
                 for (int j = i; j < total - 1; j++) {
                     nomes[j] = nomes[j + 1];
                     unidades[j] = unidades[j + 1];
                     precos[j] = precos[j + 1];
                     quantidades[j] = quantidades[j + 1];
                 }
-                total--;
+                total--; // Reduz o total pois um produto foi removido
                 sucesso("Produto excluido com sucesso!");
             } else {
                 aviso("Exclusao cancelada.");
@@ -312,6 +323,7 @@ public class Cadastro_Produto {
         } while (confirmar("Deseja fazer nova exclusao?"));
     }
 
+    // Percorre os vetores procurando o produto pelo nome. Retorna o índice ou -1 se não achar.
     static int buscar(String nome) {
         for (int i = 0; i < total; i++) {
             if (nomes[i].equalsIgnoreCase(nome)) {
@@ -321,22 +333,27 @@ public class Cadastro_Produto {
         return -1;
     }
 
+    // Exibe uma janela para o usuário digitar um valor e retorna o texto digitado.
     static String input(String mensagem) {
         return JOptionPane.showInputDialog(null, mensagem, "Entrada", JOptionPane.QUESTION_MESSAGE);
     }
 
+    // Exibe uma janela de erro com a mensagem informada.
     static void erro(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem, "Erro", JOptionPane.ERROR_MESSAGE);
     }
 
+    // Exibe uma janela de sucesso com a mensagem informada.
     static void sucesso(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    // Exibe uma janela de aviso com a mensagem informada.
     static void aviso(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem, "Aviso", JOptionPane.WARNING_MESSAGE);
     }
 
+    // Exibe uma janela com "Sim" e "Não". Retorna true se o usuário confirmar.
     static boolean confirmar(String mensagem) {
         int resposta = JOptionPane.showConfirmDialog(null, mensagem, "Confirmacao", JOptionPane.YES_NO_OPTION);
         return resposta == JOptionPane.YES_OPTION;
