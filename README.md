@@ -107,7 +107,7 @@ Pensando nisso, desenvolvemos um sistema de controle de estoque para uma empresa
 
 ## Desenvolvedores
 
-- **Mateus Zanela** RA: 10726115012 — [@MateusZanela08](https://github.com/MateusZanela08)
+- **Mateus Machado Da Costa Zanela** RA: 10726115012 — [@MateusZanela08](https://github.com/MateusZanela08)
 - **Davi Schuchowsky Boscarino de Medeiros** RA: 10726110622 — [@DaviMedeiros07](https://github.com/DaviMedeiros07)
 - **Mateus Pauli Stahnke** RA: 1072611728 — [@pauli-01](https://github.com/pauli-01)
 - **Joao Luiz Candaten Fonseca** RA: 10726113312 — [@joaoluizcfonseca](https://github.com/joaoluizcfonseca)
