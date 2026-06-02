@@ -1,5 +1,3 @@
-package com.mycompany.a3_reajuste_preco;
-
 import javax.swing.JOptionPane;
 
 /**
