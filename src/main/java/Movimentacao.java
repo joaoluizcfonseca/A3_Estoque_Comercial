@@ -114,6 +114,85 @@ public class Movimentacao {
     }
 
     /**
+     * Sub-rotina: gerencia o fluxo completo de entrada de produto (Tela 1.2.1).
+     *
+     * <p>Lê o nome do produto, verifica se está cadastrado, solicita a quantidade
+     * de entrada, calcula a quantidade final, pede confirmação e registra a operação.
+     * Ao final pergunta se o usuário deseja realizar uma nova entrada.</p>
+     */
+    private void menuEntrada() {
+        boolean novaEntrada;
+
+        do {
+            String nomeProduto = lerNomeProduto("MOVIMENTAÇÃO - ENTRADA DE PRODUTO");
+            if (nomeProduto == null) return;
+
+            int indice = buscarProduto(nomeProduto);
+
+            if (indice == -1) {
+                exibirMensagem(
+                    "Produto \"" + nomeProduto + "\" não encontrado no estoque!",
+                    "Produto não encontrado", JOptionPane.WARNING_MESSAGE);
+                novaEntrada = perguntarNova("Deseja realizar uma nova entrada?", "Nova Entrada");
+                continue;
+            }
+
+            int qtdeEntrada = lerQuantidadePositiva(
+                "MOVIMENTAÇÃO - ENTRADA DE PRODUTO\n\n"
+                + "Produto   : " + nomes[indice] + "\n"
+                + "Qtde Atual: " + quantidades[indice] + " " + unidades[indice] + "\n\n"
+                + "Informe a quantidade de entrada:"
+            );
+            if (qtdeEntrada == -1) return;
+
+            int qtdeFinal = quantidades[indice] + qtdeEntrada;
+
+            if (confirmarOperacao(montarTextoEntrada(indice, qtdeEntrada, qtdeFinal))) {
+                registrarEntrada(indice, qtdeFinal);
+            } else {
+                exibirMensagem("Operação cancelada.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            novaEntrada = perguntarNova("Deseja realizar uma nova entrada?", "Nova Entrada");
+
+        } while (novaEntrada);
+    }
+
+    /**
+     * Função: monta o texto de resumo para a janela de confirmação de entrada.
+     *
+     * @param indice      índice do produto no vetor
+     * @param qtdeEntrada quantidade informada para entrada
+     * @param qtdeFinal   quantidade resultante após a entrada
+     * @return            texto formatado pronto para exibição na janela de confirmação
+     */
+    private String montarTextoEntrada(int indice, int qtdeEntrada, int qtdeFinal) {
+        return "MOVIMENTAÇÃO - ENTRADA DE PRODUTO\n\n"
+            + "Produto     : " + nomes[indice] + "\n"
+            + "Qtde Atual  : " + quantidades[indice] + " " + unidades[indice] + "\n"
+            + "Qtde Entrada: " + qtdeEntrada + "\n"
+            + "Qtde Final  : " + qtdeFinal + "\n\n"
+            + "Confirma a entrada?";
+    }
+
+    /**
+     * Procedimento: efetiva a entrada do produto no estoque e exibe mensagem de sucesso.
+     *
+     * <p>Atualiza o vetor de quantidades com o novo valor e informa o usuário.</p>
+     *
+     * @param indice    índice do produto no vetor
+     * @param qtdeFinal nova quantidade após a entrada ser registrada
+     */
+    private void registrarEntrada(int indice, int qtdeFinal) {
+        quantidades[indice] = qtdeFinal;
+        exibirMensagem(
+            "Entrada registrada com sucesso!\n\n"
+            + "Produto        : " + nomes[indice] + "\n"
+            + "Nova Quantidade: " + qtdeFinal + " " + unidades[indice],
+            "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
      * Função auxiliar: exibe uma janela com botões de opções e retorna a escolha.
      *
      * @param mensagem texto descritivo exibido na janela
