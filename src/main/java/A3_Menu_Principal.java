@@ -83,12 +83,7 @@ public class A3_Menu_Principal {
      * Exibe o menu do módulo Cadastro de Preços.
      */
     static void menuCadastroPrecos() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Modulo: Cadastro de Precos",
-                "Cadastro de Precos",
-                JOptionPane.INFORMATION_MESSAGE
-        );
+        Cadastro_Produto.menuCadastro();
     }
 
     /**
