@@ -1,5 +1,3 @@
-package A3_Estoque_Comercial;
-
 import javax.swing.JOptionPane;
 
 /**
