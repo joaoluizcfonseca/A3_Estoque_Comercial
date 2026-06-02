@@ -193,6 +193,87 @@ public class Movimentacao {
     }
 
     /**
+     * Sub-rotina: gerencia o fluxo completo de saída de produto (Tela 1.2.2).
+     *
+     * <p>Lê o nome do produto, verifica se está cadastrado, solicita a quantidade
+     * de saída validando que não ultrapasse o estoque disponível, calcula a
+     * quantidade final, pede confirmação e registra a operação.
+     * Ao final pergunta se o usuário deseja realizar uma nova saída.</p>
+     */
+    private void menuSaida() {
+        boolean novaSaida;
+
+        do {
+            String nomeProduto = lerNomeProduto("MOVIMENTAÇÃO - SAÍDA DE PRODUTO");
+            if (nomeProduto == null) return;
+
+            int indice = buscarProduto(nomeProduto);
+
+            if (indice == -1) {
+                exibirMensagem(
+                    "Produto \"" + nomeProduto + "\" não encontrado no estoque!",
+                    "Produto não encontrado", JOptionPane.WARNING_MESSAGE);
+                novaSaida = perguntarNova("Deseja realizar uma nova saída?", "Nova Saída");
+                continue;
+            }
+
+            int qtdeSaida = lerQuantidadeSaida(
+                "MOVIMENTAÇÃO - SAÍDA DE PRODUTO\n\n"
+                + "Produto   : " + nomes[indice] + "\n"
+                + "Qtde Atual: " + quantidades[indice] + " " + unidades[indice] + "\n\n"
+                + "Informe a quantidade de saída:",
+                quantidades[indice]
+            );
+            if (qtdeSaida == -1) return;
+
+            int qtdeFinal = quantidades[indice] - qtdeSaida;
+
+            if (confirmarOperacao(montarTextoSaida(indice, qtdeSaida, qtdeFinal))) {
+                registrarSaida(indice, qtdeFinal);
+            } else {
+                exibirMensagem("Operação cancelada.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            novaSaida = perguntarNova("Deseja realizar uma nova saída?", "Nova Saída");
+
+        } while (novaSaida);
+    }
+
+    /**
+     * Função: monta o texto de resumo para a janela de confirmação de saída.
+     *
+     * @param indice    índice do produto no vetor
+     * @param qtdeSaida quantidade informada para saída
+     * @param qtdeFinal quantidade resultante após a saída
+     * @return          texto formatado pronto para exibição na janela de confirmação
+     */
+    private String montarTextoSaida(int indice, int qtdeSaida, int qtdeFinal) {
+        return "MOVIMENTAÇÃO - SAÍDA DE PRODUTO\n\n"
+            + "Produto   : " + nomes[indice] + "\n"
+            + "Qtde Atual: " + quantidades[indice] + " " + unidades[indice] + "\n"
+            + "Qtde Saída: " + qtdeSaida + "\n"
+            + "Qtde Final: " + qtdeFinal + "\n\n"
+            + "Confirma a saída?";
+    }
+
+    /**
+     * Procedimento: efetiva a saída do produto no estoque e exibe mensagem de sucesso.
+     *
+     * <p>Atualiza o vetor de quantidades com o novo valor e informa o usuário.</p>
+     *
+     * @param indice    índice do produto no vetor
+     * @param qtdeFinal nova quantidade após a saída ser registrada
+     */
+    private void registrarSaida(int indice, int qtdeFinal) {
+        quantidades[indice] = qtdeFinal;
+        exibirMensagem(
+            "Saída registrada com sucesso!\n\n"
+            + "Produto        : " + nomes[indice] + "\n"
+            + "Nova Quantidade: " + qtdeFinal + " " + unidades[indice],
+            "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
      * Função auxiliar: exibe uma janela com botões de opções e retorna a escolha.
      *
      * @param mensagem texto descritivo exibido na janela
