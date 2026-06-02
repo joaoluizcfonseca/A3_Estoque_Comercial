@@ -90,13 +90,16 @@ public class A3_Menu_Principal {
      * Exibe o menu do módulo Movimentação de Estoque.
      */
     static void menuMovimentacaoEstoque() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Modulo: Movimentacao de Estoque",
-                "Movimentacao de Estoque",
-                JOptionPane.INFORMATION_MESSAGE
-        );
-    }
+    Movimentacao mov = new Movimentacao(
+            Cadastro_Produto.nomes,
+            Cadastro_Produto.precos,
+            Cadastro_Produto.unidades,
+            Cadastro_Produto.quantidades,
+            Cadastro_Produto.total
+    );
+
+    mov.menuMovimentacao();
+}
 
     /**
      * Exibe o menu do módulo Reajuste de Preços.
@@ -114,11 +117,14 @@ public class A3_Menu_Principal {
      * Exibe o menu do módulo Relatórios.
      */
     static void menuRelatorios() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Modulo: Relatorios",
-                "Relatorios",
-                JOptionPane.INFORMATION_MESSAGE
-        );
+    Relatorios rel = new Relatorios(
+            Cadastro_Produto.nomes,
+            Cadastro_Produto.precos,
+            Cadastro_Produto.unidades,
+            Cadastro_Produto.quantidades,
+            Cadastro_Produto.total
+    );
+
+    rel.menuRelatorios();
     }
 }
