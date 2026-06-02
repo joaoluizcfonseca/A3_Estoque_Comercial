@@ -57,7 +57,7 @@ public class Cadastro_Produto {
     /**
      * Exibe o submenu com as opções de inclusão, alteração, consulta e exclusão.
      */
-    static void menuCadastro() {
+   public static void menuCadastro() {
         while (true) {
             String[] opcoes = {"Inclusao", "Alteracao", "Consulta", "Exclusao", "Retornar"};
             int escolha = JOptionPane.showOptionDialog(
