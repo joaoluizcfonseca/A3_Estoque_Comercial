@@ -105,13 +105,15 @@ public class A3_Menu_Principal {
      * Exibe o menu do módulo Reajuste de Preços.
      */
     static void menuReajustePrecos() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Modulo: Reajuste de Precos",
-                "Reajuste de Precos",
-                JOptionPane.INFORMATION_MESSAGE
-        );
-    }
+
+    A3_Reajuste_Preco.nomes = Cadastro_Produto.nomes;
+    A3_Reajuste_Preco.unidades = Cadastro_Produto.unidades;
+    A3_Reajuste_Preco.precos = Cadastro_Produto.precos;
+    A3_Reajuste_Preco.quantidades = Cadastro_Produto.quantidades;
+    A3_Reajuste_Preco.total = Cadastro_Produto.total;
+
+    A3_Reajuste_Preco.reajuste();
+}
 
     /**
      * Exibe o menu do módulo Relatórios.
