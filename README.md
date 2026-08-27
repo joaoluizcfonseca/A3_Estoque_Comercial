@@ -1,4 +1,4 @@
-# A3 Estoque Comercial
+# A3 Estoque Comercial Finalizado
 
 Sistema de Controle de Estoque desenvolvido em Java como trabalho avaliativo (A3) da unidade curricular **Algoritmos e Programação** da Universidade do Sul de Santa Catarina – UNISUL.
 
